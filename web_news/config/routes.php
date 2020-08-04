@@ -20,7 +20,7 @@
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
@@ -29,11 +29,24 @@ use Cake\Routing\Router;
 $routes->setRouteClass(DashedRoute::class);
 
 $routes->scope('/', function (RouteBuilder $builder) {
+    // Register scoped middleware for in scopes.
+    // $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+    //     'httpOnly' => true,
+    // ]));
+
+    /*
+     * Apply a middleware to the current route scope.
+     * Requires middleware to be registered through `Application::routes()` with `registerMiddleware()`
+     */
+    // $builder->applyMiddleware('csrf');
+
     $builder->connect('/', ['controller' => 'Blogs', 'action' => 'index']);
+
+    $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $builder->fallbacks();
 });
 
-Router::prefix('Admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $routes) {
-    $routes->connect('/', ['controller' => 'Admin', 'action' => 'index']);
-    $routes->fallbacks();
-});
+// Router::prefix('Admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $routes) {
+//     $routes->connect('/', ['controller' => 'Admin', 'action' => 'index']);
+//     $routes->fallbacks();
+// });
