@@ -20,6 +20,9 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= $this->Url->build(['controller'=>'blogs','action'=>'contact']); ?>">Contact</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'login','action'=>'index']); ?>">Login</a>
+          </li>
         </ul>
       </div>
     </div>
