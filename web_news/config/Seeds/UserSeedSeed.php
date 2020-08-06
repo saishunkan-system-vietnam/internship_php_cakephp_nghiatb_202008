@@ -23,21 +23,21 @@ class UserSeedSeed extends AbstractSeed
         $data = [
             [
             'email'=>'admin@gmail.com',
-            'password'=>'123456',
+            'password'=> md5('123456'),
             'name'=>'nghia',
             'phone'=>'123456789',
             'level'=>1
             ],
             [
                 'email'=>'mod@gmail.com',
-                'password'=>'123456',
+                'password'=>md5('123456'),
                 'name'=>'mod',
                 'phone'=>'123456789',
                 'level'=>2
             ],
             [
                 'email'=>'author@gmail.com',
-                'password'=>'123456',
+                'password'=>md5('123456'),
                 'name'=>'author',
                 'phone'=>'123456789',
                 'level'=>3

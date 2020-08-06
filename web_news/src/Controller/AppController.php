@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -43,6 +45,26 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Authentication.Authentication');
+        // $this->loadComponent('Auth', [
+        //     'authenticate' => [
+        //         'Form' => [
+        //             'fields' => [
+        //                 'username' => 'email',
+        //                 'password' => 'password'
+        //             ]
+        //         ]
+        //     ],
+        //     'loginAction' => [
+        //         'controller' => 'Users',
+        //         'action' => 'login'
+        //     ],
+        //     'unauthorizedRedirect' => $this->referer() // If unauthorized, return them to page they were just on
+        // ]);
+
+        // Allow the display action so our pages controller
+        // continues to work.
+        // $this->Auth->allow(['display']);
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
@@ -50,4 +72,21 @@ class AppController extends Controller
          */
         //$this->loadComponent('FormProtection');
     }
+
+//    public function beforeFilter(EventInterface $event){
+//        $this->Auth->allow('home');
+//        $this->Auth->allow('register');
+//        $this->Auth->allow('verified');
+//        $this->Auth->allow('resetPassword');
+//        $this->Auth->allow('notificationResetPassword');
+//        $this->Authentication->allowUnauthenticated(['view', 'index']);
+    //    }
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        // for all controllers in our application, make index and view
+        // actions public, skipping the authentication check.
+        $this->Authentication->addUnauthenticatedActions(['add']);
+    }
+    
 }
