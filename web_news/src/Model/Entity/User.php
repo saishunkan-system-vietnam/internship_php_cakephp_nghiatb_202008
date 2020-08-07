@@ -38,7 +38,6 @@ class User extends Entity
         'level' => true,
         'created' => true,
         'modified' => true,
-        'news' => true,
     ];
 
     /**

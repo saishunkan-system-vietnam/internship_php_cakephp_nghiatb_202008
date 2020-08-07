@@ -30,6 +30,7 @@ use Cake\Event\EventInterface;
  */
 class AppController extends Controller
 {
+    
     /**
      * Initialization hook method.
      *
@@ -73,20 +74,13 @@ class AppController extends Controller
         //$this->loadComponent('FormProtection');
     }
 
-//    public function beforeFilter(EventInterface $event){
-//        $this->Auth->allow('home');
-//        $this->Auth->allow('register');
-//        $this->Auth->allow('verified');
-//        $this->Auth->allow('resetPassword');
-//        $this->Auth->allow('notificationResetPassword');
-//        $this->Authentication->allowUnauthenticated(['view', 'index']);
-    //    }
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
         // for all controllers in our application, make index and view
         // actions public, skipping the authentication check.
-        $this->Authentication->addUnauthenticatedActions(['add']);
+        $this->Authentication->addUnauthenticatedActions(['login']);
+        // $this->set('auth',$this->Authentication);
     }
     
 }

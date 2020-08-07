@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Migrations\AbstractMigration;
 
-class CreateNews extends AbstractMigration
+class CreateArticles extends AbstractMigration
 {
     /**
      * Change Method.
@@ -14,8 +14,7 @@ class CreateNews extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('news');
-
+        $table = $this->table('articles');
         $table->addColumn('title', 'text', [
             'default' => null,
             'null' => false,
@@ -33,16 +32,14 @@ class CreateNews extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
-        $table->addColumn('status', 'integer', [
-            'default' => 1,
-            'null' => false,
-        ]);
         $table->addColumn('category_id', 'integer', [
             'default' => null,
+            'limit' => 11,
             'null' => false,
         ]);
         $table->addColumn('user_id', 'integer', [
             'default' => null,
+            'limit' => 11,
             'null' => false,
         ]);
         $table->addColumn('created', 'datetime', [

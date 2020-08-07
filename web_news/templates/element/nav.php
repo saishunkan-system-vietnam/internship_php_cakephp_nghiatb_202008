@@ -9,19 +9,19 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'blogs','action'=>'index']); ?>">Home</a>
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'index']); ?>">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/blogs/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'blogs','action'=>'post']); ?>">Sample Post</a>
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'post']); ?>">Sample Post</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'blogs','action'=>'contact']); ?>">Contact</a>
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'contact']); ?>">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'login','action'=>'index']); ?>">Login</a>
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'index']); ?>">Login</a>
           </li>
         </ul>
       </div>

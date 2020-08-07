@@ -15,18 +15,20 @@ class CreateCategories extends AbstractMigration
     public function change()
     {
         $table = $this->table('categories');
+        $table->addColumn('parent_id', 'integer', [
+            'default' => null,
+            'limit' => 11,
+            'null' => false,
+        ]);
         $table->addColumn('name', 'string', [
+            'default' => null,
+            'limit' => 100,
+            'null' => false,
+        ]);
+        $table->addColumn('description', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => false,
-        ]);
-        $table->addColumn('total_post', 'integer', [
-            'default' => 0,
-            'null' => false,
-        ]);
-        $table->addColumn('description', 'text', [
-            'default' => 'Đây là danh mục',
-            'null' => true,
         ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,

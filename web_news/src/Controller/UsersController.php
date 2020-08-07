@@ -16,7 +16,7 @@ class UsersController extends AppController
         parent::beforeFilter($event);
         // Configure the login action to not require authentication, preventing
         // the infinite redirect loop issue
-        $this->Authentication->addUnauthenticatedActions(['login']);
+        $this->Authentication->addUnauthenticatedActions(['login','register']);
     }
     /**
      * Index method
@@ -40,7 +40,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['News'],
+            'contain' => ['Users'],
         ]);
 
         $this->set(compact('user'));
@@ -64,6 +64,28 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+    }
+
+    public function register()
+    {
+        $this->viewBuilder()->setLayout('register');                   
+            if ($this->request->is('post')) {
+                if($this->request->getData('password') == $this->request->getData('password-confirm'))
+                {
+                    $user = $this->Users->newEmptyEntity();
+                    $user = $this->Users->patchEntity($user, $this->request->getData());
+                    $user->level = 2;
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success(__('Tạo tài khoản thành công!!!'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('Tạo tài khoản không thành công !!!'));
+                    $this->set(compact('user'));
+                }else{
+                    $this->Flash->error(__('Nhập lại mật khẩu không chính xác!!!'));
+                }
+            }
+        
     }
 
     /**
@@ -130,7 +152,7 @@ class UsersController extends AppController
         }
         // display error if user submitted and authentication failed
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error(__('Invalid email or password'));
+            $this->Flash->error(__('Tài khoản hoặc mật khẩu không chính xác !!!'));
         }
     }
 

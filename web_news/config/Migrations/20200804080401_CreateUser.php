@@ -36,7 +36,7 @@ class CreateUser extends AbstractMigration
             'null' => false,
         ]);
         $table->addColumn('level', 'integer', [
-            'default' => null,
+            'default' => 2,
             'limit' => 10,
             'null' => false,
         ]);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf140d01a6407e4a089f21bdbae18902",
+    "content-hash": "0135721e0108cda1a1916681ad4f00bf",
     "packages": [
         {
             "name": "aura/intl",
@@ -5162,7 +5162,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cakephp/migrations": 0,
         "psy/psysh": 0
     },
     "prefer-stable": true,

@@ -8,7 +8,7 @@
 					<?= $this->Flash->render() ?>
 					</span>
 					<span class="login100-form-title p-b-33">
-						Account Login
+						Thành viên
 					</span>
 					
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -25,28 +25,35 @@
 
 					<div class="container-login100-form-btn m-t-20">
 						<button class="login100-form-btn" name="submit">
-							Sign in
+							Đăng nhập
 						</button>
 					</div>
 
 					<div class="text-center p-t-45 p-b-4">
 						<span class="txt1">
-							Forgot
+							Quên mật khẩu
 						</span>
 
 						<a href="#" class="txt2 hov1">
-							Username / Password?
+							Email / Password?
 						</a>
 					</div>
 
 					<div class="text-center">
 						<span class="txt1">
-							Create an account?
+							Chưa có tài khoản?
 						</span>
 
-						<a href="#" class="txt2 hov1">
-							<?= $this->Html->link(" Sign up", ['action' => 'add']) ?>
+						<a href="<?= $this->Url->build(['controller'=>'Users','action'=>'register']); ?>" class="txt2 hov1">
+							Sign Up
 						</a>
+					</div>
+					<div class="text-center">
+						<span class="txt1">
+							<a href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'index']); ?>" class="txt2 hov1">
+								Home
+							</a>
+						</span>						
 					</div>
 					<?= $this->Form->end() ?>
 				</form>

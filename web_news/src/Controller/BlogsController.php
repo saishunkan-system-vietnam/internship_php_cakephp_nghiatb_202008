@@ -12,6 +12,7 @@ class BlogsController extends AppController
         // $this->viewBuilder()->setLayout('master');
         // debug($event);
         // exit;
+        $this->Authentication->addUnauthenticatedActions(['index','about','contact','post']);
     }
     public function index(){
         // exit("hello");

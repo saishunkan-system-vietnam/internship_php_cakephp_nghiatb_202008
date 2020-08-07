@@ -28,12 +28,25 @@ use Cake\Routing\RouteBuilder;
 $routes->setRouteClass(DashedRoute::class);
 
 $routes->scope('/', function (RouteBuilder $builder) {
+    // $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware([
+    //     'httpOnly' => true,
+    // ]));
+
+    /*
+     * Apply a middleware to the current route scope.
+     * Requires middleware to be registered through `Application::routes()` with `registerMiddleware()`
+     */
+    // $builder->applyMiddleware('csrf');
 
     $builder->connect('/', ['controller' => 'Blogs', 'action' => 'index']);
+
+    $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+    
     $builder->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    
     $builder->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
 
-    $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    // $builder->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
     $builder->fallbacks();
 });
 
