@@ -86,10 +86,10 @@ class ArticlesTable extends Table
             ->requirePresence('img', 'create')
             ->notEmptyString('img');
 
-        $validator
-            ->scalar('content')
-            ->requirePresence('content', 'create')
-            ->notEmptyString('content');
+        // $validator
+        //     ->scalar('content')
+        //     ->requirePresence('content', 'create')
+        //     ->notEmptyString('content');
 
         return $validator;
     }

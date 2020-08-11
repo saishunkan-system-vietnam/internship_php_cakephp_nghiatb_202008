@@ -15,9 +15,6 @@
             <a class="nav-link" href="/blogs/about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'post']); ?>">Sample Post</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'contact']); ?>">Contact</a>
           </li>
           <li class="nav-item">

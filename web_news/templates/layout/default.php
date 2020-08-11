@@ -53,5 +53,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </main>
     <footer>
     </footer>
+    <?= $this->Html->script('ckeditor/ckeditor.js'); ?>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#content'),{
+                image: {
+                    toolbar: [ 'imageTextAlternative' ]
+                }
+            })
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-
+use Cake\Event\EventInterface;
 /**
  * Articles Controller
  *
@@ -50,15 +50,28 @@ class ArticlesController extends AppController
      */
     public function add()
     {
+        $articles = $this->getTableLocator()->get('Articles');
+        // $categories=$articles->find('all');
+        // $article->title = $this->request->getData('title');
+        // $article->sub_title = $this->request->getData('sub_title');
+        // $article->content = $this->request->getData('content');
+        // $article->img = $this->request->getData('img');
         $article = $this->Articles->newEmptyEntity();
         if ($this->request->is('post')) {
-            $article = $this->Articles->patchEntity($article, $this->request->getData());
+            $article->title = $this->request->getData('title');
+            $article->sub_title = $this->request->getData('sub_title');
+            $article->content = $this->request->getData('content');            
+            $article->category_id = $this->request->getData('category_id');
+            $article->user_id = $this->request->getData('user_id');
+            $file=$this->request->getData('img');
+            $file_name=$file->getClientFileName();
+            $article->img=$file_name.'.jpg';
             if ($this->Articles->save($article)) {
-                $this->Flash->success(__('The article has been saved.'));
-
+                $file->moveTo(WWW_ROOT . 'upload_file/'.$article->id.'.jpg');
+                $this->Flash->success(__('Thêm bài viết thành công!!!'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The article could not be saved. Please, try again.'));
+            $this->Flash->error(__('Thêm bài viết thất bại !!!'));
         }
         $categories = $this->Articles->Categories->find('list', ['limit' => 200]);
         $users = $this->Articles->Users->find('list', ['limit' => 200]);
