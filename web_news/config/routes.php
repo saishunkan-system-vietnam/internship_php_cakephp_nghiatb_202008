@@ -41,6 +41,12 @@ $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/', ['controller' => 'Blogs', 'action' => 'index']);
 
     $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
+
+    $builder->connect('/categories', ['controller' => 'Categories', 'action' => 'index']);
+
+    $builder->connect('/articles', ['controller' => 'Articles', 'action' => 'index']);
+
+    // $builder->connect('/articles/publish/{id}', ['controller' => 'Articles', 'action' => 'publish']);
     
     $builder->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     
@@ -52,5 +58,5 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
 // Router::prefix('Admin', ['_namePrefix' => 'admin:'], function (RouteBuilder $routes) {
 //     $routes->connect('/', ['controller' => 'Admin', 'action' => 'index']);
-//     $routes->fallbacks();
+    // $routes->fallbacks();
 // });

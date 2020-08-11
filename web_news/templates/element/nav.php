@@ -21,7 +21,11 @@
             <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'contact']); ?>">Contact</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'index']); ?>">Login</a>
+            <?php if ($this->Identity->isLoggedIn()) { ?>
+              <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'logout']); ?>">Logout</a>
+            <?php }else{ ?>
+              <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'index']); ?>">Login</a>
+            <?php } ?>
           </li>
         </ul>
       </div>

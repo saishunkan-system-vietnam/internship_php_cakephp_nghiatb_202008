@@ -4,7 +4,7 @@
                             <div class="col-lg-7">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"> <?= $this->Flash->render() ?><br>Tạo Tài Khoản</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Tạo Tài Khoản<br><span style="color:red"><?= $this->Flash->render() ?></span></h3></div>
                                     <div class="card-body">
                                         <form method="POST">
                                            

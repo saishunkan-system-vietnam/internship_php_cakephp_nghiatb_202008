@@ -26,8 +26,12 @@
                     echo $this->Form->control('password');
                     echo $this->Form->control('name');
                     echo $this->Form->control('phone');
-                    echo $this->Form->control('level');
+                    // echo $this->Form->control('level',['type'=>'checkbox']);
                 ?>
+                <select name="level" id="level">
+                    <option value="1" <?= $user->level == 1?__("selected"):__("") ?>>Admin</option>
+                    <option value="2" <?= $user->level == 2?__("selected"):__("") ?>>Author</option>
+                </select>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

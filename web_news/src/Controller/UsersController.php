@@ -25,8 +25,9 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('backend');
         $users = $this->paginate($this->Users);
-
+        
         $this->set(compact('users'));
     }
 
@@ -40,7 +41,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Users'],
+            'contain' => ['Articles'],
         ]);
 
         $this->set(compact('user'));
@@ -57,11 +58,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('Tạo thành viên thành công !!!'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('Tạo thành viên thất bại !!!'));
         }
         $this->set(compact('user'));
     }
@@ -79,7 +80,7 @@ class UsersController extends AppController
                         $this->Flash->success(__('Tạo tài khoản thành công!!!'));
                         return $this->redirect(['action' => 'index']);
                     }
-                    $this->Flash->error(__('Tạo tài khoản không thành công !!!'));
+                    $this->Flash->error(__('Email đã tồn tại !!!'));
                     $this->set(compact('user'));
                 }else{
                     $this->Flash->error(__('Nhập lại mật khẩu không chính xác!!!'));
@@ -132,7 +133,7 @@ class UsersController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) {
             $this->Authentication->logout();
-            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+            return $this->redirect(['controller' => 'Users', 'action' => 'index']);
         }
     }
     public function login()
@@ -168,9 +169,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('Thành viên đã được xóa !!!'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Thành viên chưa được xóa, vui lòng thử lại !!!'));
         }
 
         return $this->redirect(['action' => 'index']);

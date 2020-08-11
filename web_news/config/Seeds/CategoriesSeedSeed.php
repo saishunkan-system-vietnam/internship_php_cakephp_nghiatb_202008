@@ -23,14 +23,9 @@ class CategoriesSeedSeed extends AbstractSeed
         $data = [
             [
                 'parent_id' => 0,
-                'name' => 'Thế giới',
-                'description' => 'Bản tin thể giới',
+                'name' => '____ROOT____',
+                'description' => 'Danh mục gốc',
 
-            ],
-            [
-                'parent_id' => 0,
-                'name' => 'Trong nước',
-                'description' => 'Bản tin trong nước',
             ]
         ];
         

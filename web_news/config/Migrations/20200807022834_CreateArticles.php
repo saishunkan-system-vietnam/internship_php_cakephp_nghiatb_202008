@@ -19,6 +19,9 @@ class CreateArticles extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
+        $table->addColumn('publish', 'boolean', [
+            'default' => false
+        ]);
         $table->addColumn('sub_title', 'text', [
             'default' => null,
             'null' => false,

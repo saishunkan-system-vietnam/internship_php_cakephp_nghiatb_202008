@@ -23,10 +23,6 @@
                     <td><?= h($user->email) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Password') ?></th>
-                    <td><?= h($user->password) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Name') ?></th>
                     <td><?= h($user->name) ?></td>
                 </tr>
@@ -36,11 +32,11 @@
                 </tr>
                 <tr>
                     <th><?= __('Phone') ?></th>
-                    <td><?= $this->Number->format($user->phone) ?></td>
+                    <td><?= h($user->phone) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Level') ?></th>
-                    <td><?= $this->Number->format($user->level) ?></td>
+                    <td><?= h($user->level)===1?__("Admin"):__("Author") ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Created') ?></th>
