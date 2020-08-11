@@ -94,7 +94,7 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <div class="paginator">
+                    <!-- <div class="paginator">
                         <ul class="pagination">
                             <?= $this->Paginator->first('<< ' . __('first')) ?>
                             <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -104,7 +104,7 @@
                         </ul>
                         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?>
                         </p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

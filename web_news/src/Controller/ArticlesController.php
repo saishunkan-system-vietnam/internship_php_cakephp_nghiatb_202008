@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Event\EventInterface;
+use Cake\Utility\Text;
+
 /**
  * Articles Controller
  *
@@ -65,7 +67,7 @@ class ArticlesController extends AppController
             $article->user_id = $this->request->getData('user_id');
             $file=$this->request->getData('img');
             $file_name=$file->getClientFileName();
-            $article->img=$file_name.'.jpg';
+            $article->img=Text::slug($file_name).'.jpg';
             if ($this->Articles->save($article)) {
                 $file->moveTo(WWW_ROOT . 'upload_file/'.$article->id.'.jpg');
                 $this->Flash->success(__('Thêm bài viết thành công!!!'));
