@@ -57,7 +57,7 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
             <li class="breadcrumb-item active">Article</li>
-            <li class="breadcrumb-item active"><?= $this->Html->link(__('New Article'), ['action' => 'add'], ['class' => 'button float-right']) ?></li>
+            <li class="breadcrumb-item active"><?= $this->Html->link(__('New Article'), ['action' => 'add']) ?></li>
         </ol>
         <div class="card mb-4">
             <div class="card-body">
@@ -77,6 +77,7 @@
                         </thead>
                         <tbody>
                         <?php foreach ($articles as $article): ?>
+                            <?php if($this->Identity->get('name') === $article->user->name || $this->Identity->get('level') === 1){ ?>
                             <tr>
                                 <td><?= $this->Number->format($article->id) ?></td>
                                 <td><?= h($article->title) ?></td>
@@ -87,13 +88,24 @@
                                 <td><?= h($article->modified) ?></td>
                                 <td class="actions">
                                     <?= $this->Html->link(__('View'), ['action' => 'view', $article->id]) ?>
-                                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id]) ?>
-                                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]) ?>
+                                    <?php if($article->publish === false){ ?>
+                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article->id], ['confirm' => __('Bạn có chắc chắn muốn xóa? # {0}?', $article->id)]) ?>
+                                    <?php }else{?>
+                                        <a onclick="return thongBao()">Edit</a>
+                                        <a onclick="return thongBao()">Delete</a>
+                                    <?php }?>
                                 </td>
                             </tr>
+                                    <?php } ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                    <script>
+                        function thongBao(){
+                            return confirm('Bài viết đã Publish không thể sửa/xóa !!!');
+                        }
+                    </script>
                     <!-- <div class="paginator">
                         <ul class="pagination">
                             <?= $this->Paginator->first('<< ' . __('first')) ?>

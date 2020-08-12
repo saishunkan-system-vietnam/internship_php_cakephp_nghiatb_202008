@@ -16,21 +16,21 @@
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <?php if($article->publish == 0){ ?>
+        <?php if($article->publish == 0 && $this->Identity->get('level') === 1){ ?>
             <?= $this->Html->link(__('Publish'), ['action' => 'publish', $article->id], ['class' => 'button float-right']) ?>
-        <?php }else{ ?>
+        <?php }elseif($article->publish == 1 && $this->Identity->get('level') === 1){ ?>
             <?= $this->Html->link(__('UnPublish'), ['action' => 'unPublish', $article->id], ['class' => 'button float-right']) ?>
         <?php } ?>
         <div class="articles view content">
             <h3><?= h($article->title) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Img') ?></th>
-                    <td><?= h($article->img) ?></td>
+                    <th><?= __('Image') ?></th>
+                    <td><img src="/upload_file/<?= $article->id.'.jpg' ?>" alt="img" width="500px"></td>
                 </tr>
                 <tr>
                     <th><?= __('Publish') ?></th>
-                    <td><?= h($article->publish) ?></td>
+                    <td><?= h($article->publish) === true ? 'Announced' : 'Not yet announced' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Category') ?></th>

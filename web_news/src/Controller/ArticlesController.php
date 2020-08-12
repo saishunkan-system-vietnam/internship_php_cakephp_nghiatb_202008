@@ -2,7 +2,10 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+
+use Cake\Core\App;
 use Cake\Event\EventInterface;
+use Cake\Filesystem\File;
 use Cake\Utility\Text;
 
 /**
@@ -20,10 +23,13 @@ class ArticlesController extends AppController
      */
     public function index()
     {
+        // $articles = $this->getTableLocator()->get('Articles');
         $this->viewBuilder()->setLayout('backend');
         $this->paginate = [
             'contain' => ['Categories', 'Users'],
+            'order' => ['created'=>'DESC']
         ];
+        // $this->paginate['order'] = ['id' => 'DESC'];
         $articles = $this->paginate($this->Articles);
 
         $this->set(compact('articles'));
@@ -146,6 +152,7 @@ class ArticlesController extends AppController
      */
     public function delete($id = null)
     {
+        unlink(WWW_ROOT.'upload_file/'.$id.'.jpg');
         $this->request->allowMethod(['post', 'delete']);
         $article = $this->Articles->get($id);
         if ($this->Articles->delete($article)) {

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\Session;
+
 /**
  * Users Controller
  *
@@ -25,10 +27,22 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->setLayout('backend');
-        $users = $this->paginate($this->Users);
-        
-        $this->set(compact('users'));
+        // $this->Authentication->getIdentityData('email');
+        if($this->Authentication->getIdentityData('level') === 1){
+            $this->viewBuilder()->setLayout('backend');
+            // $result = $this->Auth->user('name');
+            // exit($result);
+            $users = $this->paginate($this->Users);
+            
+            $this->set(compact('users'));
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
+        }
     }
 
     /**
@@ -54,17 +68,26 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Tạo thành viên thành công !!!'));
+        if($this->Authentication->getIdentityData('level') === 1){
+            $user = $this->Users->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('Tạo thành viên thành công !!!'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Tạo thành viên thất bại !!!'));
             }
-            $this->Flash->error(__('Tạo thành viên thất bại !!!'));
+            $this->set(compact('user'));
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
         }
-        $this->set(compact('user'));
     }
 
     public function register()

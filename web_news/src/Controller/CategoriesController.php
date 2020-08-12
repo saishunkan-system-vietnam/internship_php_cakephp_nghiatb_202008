@@ -18,14 +18,23 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->setLayout('backend');
-        $this->paginate = [
-            'contain' => ['ParentCategories'],
-        ];
-        $categories = $this->paginate($this->Categories);
+        if($this->Authentication->getIdentityData('level') === 1){
+            $this->viewBuilder()->setLayout('backend');
+            $this->paginate = [
+                'contain' => ['ParentCategories'],
+            ];
+            $categories = $this->paginate($this->Categories);
+            $this->set(compact('categories'));
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
 
-        $this->set(compact('categories'));
+            return $this->redirect($redirect);
+        }
     }
+
 
     /**
      * View method
@@ -36,11 +45,11 @@ class CategoriesController extends AppController
      */
     public function view($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => ['ParentCategories', 'Articles', 'ChildCategories'],
-        ]);
+            $category = $this->Categories->get($id, [
+                'contain' => ['ParentCategories', 'Articles', 'ChildCategories'],
+            ]);
 
-        $this->set(compact('category'));
+            $this->set(compact('category'));
     }
 
     /**
@@ -50,18 +59,27 @@ class CategoriesController extends AppController
      */
     public function add()
     {
-        $category = $this->Categories->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $category = $this->Categories->patchEntity($category, $this->request->getData());
-            if ($this->Categories->save($category)) {
-                $this->Flash->success(__('The category has been saved.'));
+        if($this->Authentication->getIdentityData('level') === 1){
+            $category = $this->Categories->newEmptyEntity();
+            if ($this->request->is('post')) {
+                $category = $this->Categories->patchEntity($category, $this->request->getData());
+                if ($this->Categories->save($category)) {
+                    $this->Flash->success(__('Thêm danh mục thành công !!!'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Thêm danh mục không thành công, thử lại !!!'));
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+            $this->set(compact('category', 'parentCategories'));
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
         }
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
-        $this->set(compact('category', 'parentCategories'));
     }
 
     /**
@@ -73,20 +91,29 @@ class CategoriesController extends AppController
      */
     public function edit($id = null)
     {
-        $category = $this->Categories->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $category = $this->Categories->patchEntity($category, $this->request->getData());
-            if ($this->Categories->save($category)) {
-                $this->Flash->success(__('The category has been saved.'));
+        if($this->Authentication->getIdentityData('level') === 1){
+            $category = $this->Categories->get($id, [
+                'contain' => [],
+            ]);
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $category = $this->Categories->patchEntity($category, $this->request->getData());
+                if ($this->Categories->save($category)) {
+                    $this->Flash->success(__('Sửa danh mục thành công!!!'));
 
-                return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('Sửa danh mục thất bại, thử lại!!!'));
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
+            $this->set(compact('category', 'parentCategories'));
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
         }
-        $parentCategories = $this->Categories->ParentCategories->find('list', ['limit' => 200]);
-        $this->set(compact('category', 'parentCategories'));
     }
 
     /**
@@ -98,14 +125,23 @@ class CategoriesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $category = $this->Categories->get($id);
-        if ($this->Categories->delete($category)) {
-            $this->Flash->success(__('The category has been deleted.'));
-        } else {
-            $this->Flash->error(__('The category could not be deleted. Please, try again.'));
-        }
+        if($this->Authentication->getIdentityData('level') === 1){
+            $this->request->allowMethod(['post', 'delete']);
+            $category = $this->Categories->get($id);
+            if ($this->Categories->delete($category)) {
+                $this->Flash->success(__('Xóa danh mục thành công!!!'));
+            } else {
+                $this->Flash->error(__('Xóa danh mục thất bại, thử lại!!!'));
+            }
 
-        return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'index']);
+        }else{
+            $redirect = $this->request->getQuery('redirect', [
+                'controller' => 'Articles',
+                'action' => 'index',
+            ]);
+
+            return $this->redirect($redirect);
+        }
     }
 }

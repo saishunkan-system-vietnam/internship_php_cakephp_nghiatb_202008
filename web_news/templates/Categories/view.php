@@ -53,7 +53,6 @@
                             <th><?= __('Title') ?></th>
                             <th><?= __('Sub Title') ?></th>
                             <th><?= __('Img') ?></th>
-                            <th><?= __('Content') ?></th>
                             <th><?= __('Category Id') ?></th>
                             <th><?= __('User Id') ?></th>
                             <th><?= __('Created') ?></th>
@@ -65,8 +64,7 @@
                             <td><?= h($articles->id) ?></td>
                             <td><?= h($articles->title) ?></td>
                             <td><?= h($articles->sub_title) ?></td>
-                            <td><?= h($articles->img) ?></td>
-                            <td><?= h($articles->content) ?></td>
+                            <td><img src="<?= '/upload_file/'.$articles->id.'.jpg' ?>" alt="img"></td>
                             <td><?= h($articles->category_id) ?></td>
                             <td><?= h($articles->user_id) ?></td>
                             <td><?= h($articles->created) ?></td>

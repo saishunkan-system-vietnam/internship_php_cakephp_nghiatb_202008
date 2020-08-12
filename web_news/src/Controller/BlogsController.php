@@ -19,10 +19,13 @@ class BlogsController extends AppController
         // exit("hello");
         $this->viewBuilder()->setLayout('master');
         $articles = $this->getTableLocator()->get('Articles');
+        $categories = $this->getTableLocator()->get('Categories');
+        $query = $categories->find('all');
         // $query = $articles->find();
         $this->paginate = [
             'contain' => ['Categories', 'Users']
         ];
+        $this->set('categories',$query);
         $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true])->order(['Articles.modified' => 'DESC'])));
     }
 

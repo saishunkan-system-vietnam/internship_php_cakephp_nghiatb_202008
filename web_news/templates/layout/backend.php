@@ -103,6 +103,7 @@
                 </nav>
             </div>
             <div id="layoutSidenav_content">
+                <?= $this->Flash->render() ?>
                 <?= $this->fetch('content') ?>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">

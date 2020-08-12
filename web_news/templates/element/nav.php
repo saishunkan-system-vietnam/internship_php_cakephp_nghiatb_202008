@@ -11,6 +11,17 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'index']); ?>">Home</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+      
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Thế giới</a>
+              <a class="dropdown-item" href="#">Trong nước</a>
+            </div>
+        
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/blogs/about">About</a>
           </li>
