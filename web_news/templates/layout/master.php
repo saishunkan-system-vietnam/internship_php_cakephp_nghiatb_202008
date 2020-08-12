@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Clean Blog - Start Bootstrap Theme</title>
+  <title>NGHIA-SSV</title>
 
   <!-- Bootstrap core CSS -->
   <?= $this->Html->css(['Frontend/vendor/bootstrap/css/bootstrap.min.css','Frontend/vendor/fontawesome-free/css/all.min.css','Frontend/css/clean-blog.min.css'])?>
@@ -29,7 +29,49 @@
 <body>
 
   <!-- Navigation -->
-  <?= $this->element('nav') ?>
+  <!-- $this->element('nav')  -->
+  
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="<?= $this->Url->build(['controller'=>'blogs','action'=>'index']); ?>">BLOG</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'index']); ?>">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categories
+            </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <?php foreach ($categories as $category): ?>
+                  <?php if($category->parent_id > 0){ ?>
+                    <a class="dropdown-item" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'select',$category->id]); ?>"><?= $category->name ?></a>
+                  <?php } ?>
+                <?php endforeach; ?>
+              </div>            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blogs/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Blogs','action'=>'contact']); ?>">Contact</a>
+          </li>
+          <li class="nav-item">
+            <?php if ($this->Identity->isLoggedIn()) { ?>
+              <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'logout']); ?>">Logout</a>
+            <?php }else{ ?>
+              <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'index']); ?>">Login</a>
+            <?php } ?>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <!-- Content  -->
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>

@@ -40,6 +40,8 @@ $routes->scope('/', function (RouteBuilder $builder) {
 
     $builder->connect('/', ['controller' => 'Blogs', 'action' => 'index']);
 
+    // $builder->connect('/blogs/select/{id}', ['controller' => 'Blogs', 'action' => 'select']);
+
     $builder->connect('/users', ['controller' => 'Users', 'action' => 'index']);
 
     $builder->connect('/categories', ['controller' => 'Categories', 'action' => 'index']);

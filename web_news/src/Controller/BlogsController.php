@@ -13,7 +13,7 @@ class BlogsController extends AppController
         // $this->viewBuilder()->setLayout('master');
         // debug($event);
         // exit;
-        $this->Authentication->addUnauthenticatedActions(['index','about','contact','post']);
+        $this->Authentication->addUnauthenticatedActions(['index','about','contact','post','select']);
     }
     public function index(){
         // exit("hello");
@@ -26,8 +26,30 @@ class BlogsController extends AppController
             'contain' => ['Categories', 'Users']
         ];
         $this->set('categories',$query);
+        
         $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true])->order(['Articles.modified' => 'DESC'])));
+        // $this->render('/element/nav');
     }
+
+    public function select($id = null){
+        // exit("hello");
+        $this->viewBuilder()->setLayout('master');
+        $articles = $this->getTableLocator()->get('Articles');
+        $categories = $this->getTableLocator()->get('Categories');
+        $query = $categories->find('all');
+        $cate = $categories->find()->where(['id'=>$id]);
+        // $query = $articles->find();
+        $this->paginate = [
+            'contain' => ['Categories', 'Users']
+        ];
+        $this->set('categories',$query);
+        $this->set('category',$cate);
+        
+        $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true, 'category_id'=> $id])->order(['Articles.modified' => 'DESC'])));
+        // $this->render('/element/nav');
+    }
+
+
 
     public function about(){
         // exit($id);
@@ -42,11 +64,13 @@ class BlogsController extends AppController
     public function post($id){
         $this->viewBuilder()->setLayout('master');
         $articles = $this->getTableLocator()->get('Articles');
+        $categories = $this->getTableLocator()->get('Categories');
+        $cate = $categories->find('all');
         $query = $articles->find()->where(['id'=>$id,'publish'=>true]);
         $query = $articles->get($id, [
             'contain' => ['Categories', 'Users'],
         ]);
-
+        $this->set('categories',$cate);
         // foreach ($query as $value) {
         //     echo $value;
         // }

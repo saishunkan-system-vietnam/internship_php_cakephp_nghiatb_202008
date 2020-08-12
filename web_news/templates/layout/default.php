@@ -53,12 +53,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </main>
     <footer>
     </footer>
-    <?= $this->Html->script('ckeditor/ckeditor.js'); ?>
+    <?= $this->Html->script(['ckeditor/ckeditor.js','ckfinder/ckfinder.js']); ?>
     <script>
         ClassicEditor
             .create(document.querySelector('#content'),{
-                image: {
-                    toolbar: [ 'imageTextAlternative' ]
+                ckfinder: {
+                 uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files&responseType=json'
                 }
             })
             .catch( error => {
