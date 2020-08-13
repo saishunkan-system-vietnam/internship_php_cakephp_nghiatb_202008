@@ -67,6 +67,11 @@
             <?php }else{ ?>
               <a class="nav-link" href="<?= $this->Url->build(['controller'=>'Users','action'=>'index']); ?>">Login</a>
             <?php } ?>
+            <li class="nav-item">
+              <?= $this->Form->create() ?>
+                <input class="form-control" name="search" type="search" placeholder="Search" aria-label="Search">
+              <?= $this->Form->end() ?>
+          </li>
           </li>
         </ul>
       </div>
