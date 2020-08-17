@@ -8,6 +8,14 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 
 class BlogsController extends AppController
 {
+    // public $components = array('RequestHandler');
+
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
     public function beforeFilter(EventInterface $event)
     {
         // $this->viewBuilder()->setLayout('master');
@@ -19,17 +27,18 @@ class BlogsController extends AppController
         $search = $this->request->getData('search');
         // exit("hello");
         if($search){
-            // exit($search);
-            $this->viewBuilder()->setLayout('master');
-        $articles = $this->getTableLocator()->get('Articles');
-        $categories = $this->getTableLocator()->get('Categories');
-        $query = $categories->find('all');
-        $this->paginate = [
-            'contain' => ['Categories', 'Users']
-        ];
-        $this->set('categories',$query);
-        
-        $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true])->where(['OR' => ['content LIKE' => '%' . $search . '%','title LIKE' => '%' . $search . '%']])->order(['Articles.modified' => 'DESC'])));
+                // exit($search);
+                $this->viewBuilder()->setLayout('master');
+            $articles = $this->getTableLocator()->get('Articles');
+            $categories = $this->getTableLocator()->get('Categories');
+            $query = $categories->find('all');
+            $this->paginate = [
+                'contain' => ['Categories', 'Users'],
+                'limit' => 5
+            ];
+            $this->set('categories',$query);
+            
+            $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true])->where(['OR' => ['content LIKE' => '%' . $search . '%','title LIKE' => '%' . $search . '%']])->order(['Articles.modified' => 'DESC'])));
         }else{
             $this->viewBuilder()->setLayout('master');
             $articles = $this->getTableLocator()->get('Articles');
@@ -37,7 +46,8 @@ class BlogsController extends AppController
             $query = $categories->find('all');
             // $query = $articles->find();
             $this->paginate = [
-                'contain' => ['Categories', 'Users']
+                'contain' => ['Categories', 'Users'],
+                'limit' => 5
             ];
             $this->set('categories',$query);
             
@@ -56,7 +66,8 @@ class BlogsController extends AppController
         $cate = $categories->find()->where(['id'=>$id]);
         // $query = $articles->find();
         $this->paginate = [
-            'contain' => ['Categories', 'Users']
+            'contain' => ['Categories', 'Users'],
+            'limit' => 5
         ];
         $this->set('categories',$query);
         $this->set('category',$cate);

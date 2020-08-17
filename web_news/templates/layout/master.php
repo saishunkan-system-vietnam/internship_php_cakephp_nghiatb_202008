@@ -9,7 +9,32 @@
   <meta name="author" content="">
 
   <title>NGHIA-SSV</title>
-
+  <style>
+    .paginator {
+    text-align: right;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1rem;
+    }
+    .pagination li {
+        margin: 0 0.5rem;
+    }
+    .prev.disabled a,
+    .next.disabled a {
+        cursor: not-allowed;
+        color: #606c76;
+    }
+    .asc:after {
+        content: " \2193";
+    }
+    .desc:after {
+        content: " \2191";
+    }
+  </style>
   <!-- Bootstrap core CSS -->
   <?= $this->Html->css(['Frontend/vendor/bootstrap/css/bootstrap.min.css','Frontend/vendor/fontawesome-free/css/all.min.css','Frontend/css/clean-blog.min.css'])?>
   <!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -89,7 +114,6 @@
   <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
   <?= $this->Html->script(['Frontend/vendor/jquery/jquery.min.js', 'Frontend/vendor/bootstrap/js/bootstrap.bundle.min.js','Frontend/vendor/bootstrap/js/bootstrap.bundle.min.js']); ?>
   <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-
   <!-- Custom scripts for this template -->
   <!-- <script src="js/clean-blog.min.js"></script> -->
 
