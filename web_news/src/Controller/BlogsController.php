@@ -25,8 +25,13 @@ class BlogsController extends AppController
     }
     public function index(){
         $search = $this->request->getData('search');
+        // $page = $this->request->getQuery('page');
+        // if($page){
+        //     exit($page);
+        // }
         // exit("hello");
         if($search){
+            // $this->redirect('/');
                 // exit($search);
                 $this->viewBuilder()->setLayout('master');
             $articles = $this->getTableLocator()->get('Articles');
@@ -36,9 +41,11 @@ class BlogsController extends AppController
                 'contain' => ['Categories', 'Users'],
                 'limit' => 5
             ];
+           
             $this->set('categories',$query);
             
             $this->set('articles', $this->paginate($articles->find()->where(['publish'=>true])->where(['OR' => ['content LIKE' => '%' . $search . '%','title LIKE' => '%' . $search . '%']])->order(['Articles.modified' => 'DESC'])));
+            
         }else{
             $this->viewBuilder()->setLayout('master');
             $articles = $this->getTableLocator()->get('Articles');
