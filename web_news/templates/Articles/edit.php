@@ -27,7 +27,7 @@
                     echo $this->Form->control('img');
                     echo $this->Form->control('content');
                     echo $this->Form->control('category_id', ['options' => $categories]);
-                    echo $this->Form->control('user_id', ['options' => $users]);
+                    // echo $this->Form->control('user_id', ['options' => $users]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
